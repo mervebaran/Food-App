@@ -1,0 +1,42 @@
+
+<div *ngIf="foods.length>0; else no_foods">
+    <h2>{{ title }}</h2>
+
+    <div class="alert alert-warning" *ngIf="foods.length>0">
+        {{ foods.length}} yemek bulundu.
+        </div>
+<div class="mb-3">
+<input type="text" class="form-control" [(ngModel)]="filterText" placeholder="Search...">
+<small class="text-muted" *ngIf="filterText"> Aradığınız Kelime {{filterText}}</small>
+</div>
+
+
+<ng-template [ngTemplateOutlet]="foodList1"></ng-template>
+</div>
+
+
+
+<ng-template #no_foods>
+    <div class="alert alert-warning">Yemek Bulunamadı.</div>
+</ng-template>
+
+
+<ng-template #foodList1>
+    <div class="card mb-3" *ngFor="let item of foods | foodFilter: filterText">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="/assets/img/{{item.imageUrl}}" class="img-fluid rounded-start" alt="">
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h2 class="card-title">{{item.title}}</h2>
+                    <p class="card-text">{{item.description}}</p>
+                    <a routerLink="/foods/{{ item.id }}" class="btn btn-sm btn-outline-danger"> Details</a>
+                    <button (click)="addToList(item)" class="btn btn-sm btn-danger"> Listeye Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+

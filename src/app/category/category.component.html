@@ -1,0 +1,17 @@
+<div class="list-group list-group-flush">
+
+    <a 
+    routerLink="foods"
+    (click)="selectCategory()" 
+    [class.active]="displayAll"
+    class="list-group-item list-group-item-danger ">Tüm Kategoriler</a>
+
+
+    <a 
+    routerLink="foods/category/{{item.id}}"
+    *ngFor="let item of categories"
+     [class.active]="!displayAll && selectedCategory.id == item.id"
+    (click)="selectCategory(item)"
+    class="list-group-item list-group-item-danger ">{{item.name}}</a>
+
+</div>
