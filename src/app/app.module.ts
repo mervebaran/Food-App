@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './auth/error.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -11,8 +12,11 @@ import { FoodDetailsComponent } from './food-details/food-details.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FoodFilterPipe } from './pipes/food-filter.pipe';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FoodCreateComponent } from './food-create/food-create.component';
+import { AuthComponent } from './auth/auth.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { FoodsHomeComponent } from './foods/foods-home/foods-home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,7 @@ import { FoodCreateComponent } from './food-create/food-create.component';
     FoodsComponent,
     FoodComponent, 
     FoodDetailsComponent, 
-    FooterComponent, FoodFilterPipe, FoodCreateComponent
+    FooterComponent, FoodFilterPipe, FoodCreateComponent, AuthComponent, FoodsHomeComponent
   ],
   imports: [
     BrowserModule,   // module eklenir.
@@ -31,7 +35,11 @@ import { FoodCreateComponent } from './food-create/food-create.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],   // serviceler eklenir.
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+
+  ],   // serviceler eklenir.
   bootstrap: [AppComponent]  // starter component eklenir.
 })
 export class AppModule { }

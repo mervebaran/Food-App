@@ -1,5 +1,4 @@
-
-<div *ngIf="foods.length>0; else no_foods">
+ <div *ngIf="foods.length>0; else no_foods">
     <h2>{{ title }}</h2>
 
     <div class="alert alert-warning" *ngIf="foods.length>0">
@@ -13,7 +12,6 @@
 
 <ng-template [ngTemplateOutlet]="foodList1"></ng-template>
 </div>
-
 
 
 <ng-template #no_foods>
@@ -38,5 +36,4 @@
         </div>
     </div>
 </ng-template>
-
-
+ 

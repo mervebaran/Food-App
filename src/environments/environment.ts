@@ -4,6 +4,7 @@
 
 export const environment = {
   apiUrl:"http://localhost:3000/foods",
+  firebase_Url:"https://angular-food-app-b5c0a-default-rtdb.firebaseio.com/",
   production: false
 };
 

@@ -63,9 +63,9 @@ export class FoodCreateComponent implements OnInit {
 
     console.log(food);
 
-    this.foodService.createFood(food).subscribe(data=>
-      this.router.navigate(['/foods',data.id])
-      );
+    this.foodService.createFood(food).subscribe(data=>{
+      this.router.navigate(['/foods'])
+    });
   }
   
 }

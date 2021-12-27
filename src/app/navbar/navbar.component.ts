@@ -1,3 +1,5 @@
+import { AuthService } from './../auth/auth.service';
+import { AuthResponse } from './../models/AuthResponse';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  isAuthenticated: boolean = false;
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user;
+    })
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
 }

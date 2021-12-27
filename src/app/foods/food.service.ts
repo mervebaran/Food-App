@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { catchError, map, Observable, tap } from "rxjs";
 import { Food } from "../models/food";
 import { environment } from "src/environments/environment";
 
@@ -8,9 +8,11 @@ import { environment } from "src/environments/environment";
 export class FoodService {
 
     url=environment.apiUrl;
+    firebase= environment.firebase_Url;
 
     constructor(private http: HttpClient) {
         console.log(environment.apiUrl)
+        console.log(environment.firebase_Url)
     }
 
     getFoods(categoryId: number): Observable<Food[]>{
@@ -22,6 +24,18 @@ export class FoodService {
         }
 
         return this.http.get<Food[]>(this.url);
+        // .pipe(
+        //     map(response => {
+                
+        //         const foods:Food[] = [];
+
+        //         for(const key in response) {
+        //             foods.push({...response[key],id: key});
+        //         }
+        //         return foods;
+        //     }),
+        //     tap(data=> console.log(data))
+        // );
     }
 
     getFoodById(foodId: number): Observable<Food>{
